@@ -1,31 +1,5 @@
 /**
- * Copyright (c) 2017 Razeware LLC
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
- * distribute, sublicense, create a derivative work, and/or sell copies of the
- * Software in any work that is designed, intended, or marketed for pedagogical or
- * instructional purposes related to programming, coding, application development,
- * or information technology.  Permission for such use, copying, modification,
- * merger, publication, distribution, sublicensing, creation of derivative works,
- * or sale is expressly withheld.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * Copyright (c) 2017 Eric Ford Consulting
  */
 
 import Foundation
@@ -37,11 +11,19 @@ class VoiceSelectorView : UIView {
   var synth: SoftSynth?
   var voiceNowPlaying: Int
   var categorySelected: Int
+  let borderColor = UIColor(hex: 0x214627)
+  let categoryTextColor = UIColor(hex: 0x418647)
+  let voiceTextColor = UIColor(hex: 0xe7ffe9)
+  let categoryBackgroundColor = UIColor(hex: 0xb5e6b7)
+  let voiceBackgroundColor = UIColor(hex: 0x73a95e)
+  let loadingTextColor = UIColor(hex: 0xd7ffd9)
+/*
   let loadingTextColor = UIColor(red: 0.2, green: 0.2, blue: 0.9, alpha: 1.0)
   let categoryBackgroundColor = UIColor(red: 0.9, green: 0.9, blue: 1.0, alpha: 1.0)
   let categoryTextColor = UIColor(red: 0.4, green: 0.4, blue: 1.0, alpha: 1.0)
   let voiceBackgroundColor = UIColor(red: 0.8, green: 0.8, blue: 1.0, alpha: 1.0)
   let voiceTextColor = UIColor(red: 0.2, green: 0.2, blue: 0.9, alpha: 1.0)
+*/
   var showVoices = false
   var loadingDisplayIndex = 0
   var timer: Timer?
@@ -159,6 +141,7 @@ class VoiceSelectorView : UIView {
           drawVoiceButton(button: button, rect: rect)
         }
       }
+      drawBorders(rect: rect)
     } else {
       drawLoadingMessage(rect: rect)
     }
@@ -166,15 +149,28 @@ class VoiceSelectorView : UIView {
 
   // MARK: - methods used in draw()
   
-  func getTextAttributes(fontSize: CGFloat, textColor: UIColor) -> [NSAttributedStringKey: Any] {
+  func drawBorders(rect: CGRect)
+  {
+    borderColor.set()
+    let frame = UIBezierPath(rect: rect)
+    frame.lineWidth = 4
+    frame.stroke()
+    let midLine = UIBezierPath()
+    midLine.lineWidth = 2
+    midLine.move(to: CGPoint(x: 0, y: rect.origin.y + (rect.size.height / 2)))
+    midLine.addLine(to: CGPoint(x: rect.size.width, y: rect.origin.y + (rect.size.height / 2)))
+    midLine.stroke()
+  }
+  
+  func getTextAttributes(fontSize: CGFloat, textColor: UIColor) -> [String: AnyObject] {
     let paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.alignment = .center
-    var textAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): textColor,
-      NSAttributedStringKey(rawValue: NSAttributedStringKey.paragraphStyle.rawValue): paragraphStyle
+    var textAttributes: [String: AnyObject] = [
+      NSForegroundColorAttributeName: textColor,
+      NSParagraphStyleAttributeName: paragraphStyle
     ]
     if let font = UIFont(name: "MarkerFelt-Thin", size: fontSize) {
-      textAttributes[NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue)] = font
+      textAttributes[NSFontAttributeName] = font
     }
     return textAttributes
   }
@@ -186,7 +182,7 @@ class VoiceSelectorView : UIView {
   
   func drawCategoryButton(button: VoiceCategoryButton, rect: CGRect) {
     var textColor: UIColor
-    button.path.lineWidth = 4
+    button.path.lineWidth = 2
     button.path.stroke()
     if button.selected {
       button.hiliteColor.set()
@@ -242,13 +238,13 @@ class VoiceSelectorView : UIView {
   func drawLoadingString(text: String, rect: CGRect, fontSize: CGFloat) {
     let paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.alignment = .center
-    var textAttributes: [NSAttributedStringKey: Any]
+    var textAttributes: [String: AnyObject]
     textAttributes = [
-      NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): loadingTextColor,
-      NSAttributedStringKey(rawValue: NSAttributedStringKey.paragraphStyle.rawValue): paragraphStyle
+      NSForegroundColorAttributeName: loadingTextColor,
+      NSParagraphStyleAttributeName: paragraphStyle
     ]
     if let font = UIFont(name: "MarkerFelt-Thin", size: fontSize) {
-      textAttributes[NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue)] = font
+      textAttributes[NSFontAttributeName] = font
     }
     text.draw(in: rect, withAttributes: textAttributes)
   }

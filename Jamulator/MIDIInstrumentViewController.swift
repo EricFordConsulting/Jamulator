@@ -1,31 +1,5 @@
 /**
- * Copyright (c) 2017 Razeware LLC
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
- * distribute, sublicense, create a derivative work, and/or sell copies of the
- * Software in any work that is designed, intended, or marketed for pedagogical or
- * instructional purposes related to programming, coding, application development,
- * or information technology.  Permission for such use, copying, modification,
- * merger, publication, distribution, sublicensing, creation of derivative works,
- * or sale is expressly withheld.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * Copyright (c) 2017 Eric Ford Consulting
  */
 
 import UIKit
@@ -40,11 +14,11 @@ class MIDIInstrumentViewController: UIViewController {
   let sequencer = Sequencer.shared
   // a custom control for choosing from the 128 general MIDI voices
   var voiceSelectorView: VoiceSelectorView?
-  let backgroundColor = UIColor(red: 0.4, green: 0.4, blue: 0.8, alpha: 1.0)
-  let keyOnColor = UIColor(red: 0.4, green: 0.4, blue: 0.9, alpha: 1.0)
-  let whiteKeyOffColor = UIColor(red: 0.8, green: 0.8, blue: 1.0, alpha: 1.0)
-  let blackKeyOffColor = UIColor(red: 0.2, green: 0.2, blue: 0.9, alpha: 1.0)
-  let labelTextColor = UIColor(red: 0.8, green: 0.8, blue: 1.0, alpha: 1.0)
+  let backgroundColor = UIColor(hex: 0x53893e)
+  let keyOnColor = UIColor(hex: 0x519657)
+  let whiteKeyOffColor = UIColor(hex: 0xa5d6a7)
+  let blackKeyOffColor = UIColor(hex: 0x33691e)
+  let labelTextColor = UIColor(hex: 0xc7dfc9)
   
   override func viewDidLoad() {
     super.viewDidLoad()
